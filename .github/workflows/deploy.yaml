@@ -9,5 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t kevaron28/multi-react:v1 -f Dockerfile ./fibo-react
+      - name: docker login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: build docker images
+        run: |
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-react ./fibo-react
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-server ./server
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-worker ./worker
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-nginx ./nginx
+      - name: push docker images
+        run: |
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-react
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-server
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-worker
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-nginx
