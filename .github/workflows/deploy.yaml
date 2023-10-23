@@ -11,3 +11,15 @@ jobs:
       - uses: actions/checkout@v3
       - name: docker login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: build docker images
+        run: |
+          docker build -t $DOCKER_USER/multi-react:v1 -f Dockerfile ./fibo-react
+          docker build -t $DOCKER_USER/multi-server:v1 -f Dockerfile ./server
+          docker build -t $DOCKER_USER/multi-worker:v1 -f Dockerfile ./worker
+          docker build -t $DOCKER_USER/multi-nginx:v1 -f Dockerfil ./nginx
+      - name: push docker images
+        run: |
+          docker push $DOCKER_USER/multi-react:v1
+          docker push $DOCKER_USER/multi-server:v1
+          docker push $DOCKER_USER/multi-worker:v1
+          docker push $DOCKER_USER/multi-nginx:v1
