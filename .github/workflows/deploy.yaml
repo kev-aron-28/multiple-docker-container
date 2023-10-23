@@ -14,12 +14,6 @@ jobs:
       - name: build docker images
         run: |
           docker build -t ${{secrets.DOCKER_USERNAME}}/multi-react -f Dockerfile ./fibo-react
-          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-server -f Dockerfile ./server
-          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-worker -f Dockerfile ./worker
-          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-nginx -f Dockerfile ./nginx
       - name: push docker images
         run: |
           docker push ${{secrets.DOCKER_USERNAME}}/multi-react
-          docker push ${{secrets.DOCKER_USERNAME}}R/multi-server
-          docker push ${{secrets.DOCKER_USERNAME}}/multi-worker
-          docker push ${{secrets.DOCKER_USERNAME}}/multi-nginx
