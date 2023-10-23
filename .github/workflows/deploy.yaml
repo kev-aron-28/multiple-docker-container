@@ -10,12 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: docker login
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        run: docker build -t $DOCKER_USER/multi-react:v1 -f Dockerfile ./fibo-react
-        run: docker build -t $DOCKER_USER/multi-server:v1 -f Dockerfile ./server
-        run: docker build -t $DOCKER_USER/multi-worker:v1 -f Dockerfile ./worker
-        run: docker build -t $DOCKER_USER/multi-nginx:v1 -f Dockerfil ./nginx
-        run: docker push $DOCKER_USER/multi-react:v1
-        run: docker push $DOCKER_USER/multi-server:v1
-        run: docker push $DOCKER_USER/multi-worker:v1
-        run: docker push $DOCKER_USER/multi-nginx:v1
+      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker build -t $DOCKER_USER/multi-react:v1 -f Dockerfile ./fibo-react
+      - run: docker build -t $DOCKER_USER/multi-server:v1 -f Dockerfile ./server
+      - run: docker build -t $DOCKER_USER/multi-worker:v1 -f Dockerfile ./worker
+      - run: docker build -t $DOCKER_USER/multi-nginx:v1 -f Dockerfil ./nginx
+      - run: docker push $DOCKER_USER/multi-react:v1
+      - run: docker push $DOCKER_USER/multi-server:v1
+      - run: docker push $DOCKER_USER/multi-worker:v1
+      - run: docker push $DOCKER_USER/multi-nginx:v1
