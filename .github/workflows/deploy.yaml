@@ -13,13 +13,13 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: build docker images
         run: |
-          docker build -t $DOCKER_USER/multi-react -f Dockerfile ./fibo-react
-          docker build -t $DOCKER_USER/multi-server -f Dockerfile ./server
-          docker build -t $DOCKER_USER/multi-worker -f Dockerfile ./worker
-          docker build -t $DOCKER_USER/multi-nginx -f Dockerfil ./nginx
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-react -f Dockerfile ./fibo-react
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-server -f Dockerfile ./server
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-worker -f Dockerfile ./worker
+          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-nginx -f Dockerfil ./nginx
       - name: push docker images
         run: |
-          docker push $DOCKER_USER/multi-react
-          docker push $DOCKER_USER/multi-server
-          docker push $DOCKER_USER/multi-worker
-          docker push $DOCKER_USER/multi-nginx
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-react
+          docker push ${{secrets.DOCKER_USERNAME}}R/multi-server
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-worker
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-nginx
