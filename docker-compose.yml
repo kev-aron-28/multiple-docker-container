@@ -1,10 +1,10 @@
 version: "3"
 services:
   client:
-    image: "kevaron28/multi-react"
+    image: "kevaron28/multi-client"
     mem_limit: 128m
     hostname: client
-  api:
+  server:
     image: "kevaron28/multi-server"
     mem_limit: 128m
     hostname: api
