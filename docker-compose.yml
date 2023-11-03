@@ -1,61 +1,31 @@
-version: '1'
+version: "3"
 services:
-  nginx:
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    ports:
-      - '3050:80'
-    depends_on:
-      - api
-      - client
-      - redis
-      - postgres
-  postgres:
-    image: 'postgres:latest'
-    environment:
-      - POSTGRES_DB=test
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-  redis: 
-    image: 'redis:latest'
-  api:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./server
-    volumes:
-      - /app/node_modules
-      - ./server:/app
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - PSUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=test
-      - PGPASSWORD=postgres
-      - PGPORT=5432
-    depends_on:
-      - redis
-      - postgres
   client:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./fibo-react
-    volumes:
-      - /app/node_modules
-      - ./fibo-react:/app
+    image: "kevaron28/multi-react"
+    mem_limit: 128m
+    hostname: client
+  server:
+    image: "kevaron28/multi-server"
+    mem_limit: 128m
+    hostname: api
     environment:
-      - WDS_SOCKET_PORT=0
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+      - PGUSER=$PGUSER
+      - PGHOST=$PGHOST
+      - PGDATABASE=$PGDATABASE
+      - PGPASSWORD=$PGPASSWORD
+      - PGPORT=$PGPORT
   worker:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./worker
-    volumes:
-      - /app/node_modules
-      - ./worker:/app
+    image: "kevaron28/multi-worker"
+    mem_limit: 128m
+    hostname: worker
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    depends_on:
-      - redis
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+  nginx:
+    image: "kevaron28/multi-nginx"
+    mem_limit: 128m
+    hostname: nginx
+    ports:
+      - "80:80"
