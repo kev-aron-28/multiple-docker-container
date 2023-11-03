@@ -4,7 +4,7 @@ services:
     image: "kevaron28/multi-react"
     mem_limit: 128m
     hostname: client
-  server:
+  api:
     image: "kevaron28/multi-server"
     mem_limit: 128m
     hostname: api
