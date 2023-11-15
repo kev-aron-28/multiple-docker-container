@@ -19,10 +19,10 @@ jobs:
           docker build -t ${{secrets.DOCKER_USERNAME}}/multi-nginx ./nginx
       - name: push docker images
         run: |
+          docker push ${{secrets.DOCKER_USERNAME}}/multi-nginx
           docker push ${{secrets.DOCKER_USERNAME}}/multi-react
           docker push ${{secrets.DOCKER_USERNAME}}/multi-server
           docker push ${{secrets.DOCKER_USERNAME}}/multi-worker
-          docker push ${{secrets.DOCKER_USERNAME}}/multi-nginx
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
