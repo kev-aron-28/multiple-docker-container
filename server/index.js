@@ -62,6 +62,6 @@ app.post('/values', async (req, res) => {
 })
 
 
-app.listen(5000, (port) => {
-  console.log("SERVER RUNNING ON PORT " + port);
+app.listen(5000, (err) => {
+  console.log("SERVER RUNNING");
 })
