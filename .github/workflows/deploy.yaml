@@ -13,16 +13,16 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: build docker images
         run: |
-          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-react ./fibo-react
-          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-server ./server
-          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-worker ./worker
-          docker build -t ${{secrets.DOCKER_USERNAME}}/multi-nginx ./nginx
+          docker build -t kevaron28/multi-react ./fibo-react
+          docker build -t kevaron28/multi-server ./server
+          docker build -t kevaron28/multi-worker ./worker
+          docker build -t kevaron28/multi-nginx ./nginx
       - name: push docker images
         run: |
-          docker push ${{secrets.DOCKER_USERNAME}}/multi-nginx
-          docker push ${{secrets.DOCKER_USERNAME}}/multi-react
-          docker push ${{secrets.DOCKER_USERNAME}}/multi-server
-          docker push ${{secrets.DOCKER_USERNAME}}/multi-worker
+          docker push kevaron28/multi-nginx
+          docker push kevaron28/multi-react
+          docker push kevaron28/multi-server
+          docker push kevaron28/multi-worker
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
