@@ -9,20 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: docker login
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: build docker images
-        run: |
-          docker build -t kevaron28/multi-react ./fibo-react
-          docker build -t kevaron28/multi-server ./server
-          docker build -t kevaron28/multi-worker ./worker
-          docker build -t kevaron28/multi-nginx ./nginx
-      - name: push docker images
-        run: |
-          docker push kevaron28/multi-nginx
-          docker push kevaron28/multi-react
-          docker push kevaron28/multi-server
-          docker push kevaron28/multi-worker
+      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker build -t kevaron28/multi-react ./fibo-react
+      - run: docker build -t kevaron28/multi-server ./server
+      - run: docker build -t kevaron28/multi-worker ./worker
+      - run: docker build -t kevaron28/multi-nginx ./nginx
+      - run: docker push kevaron28/multi-nginx
+      - run: docker push kevaron28/multi-react
+      - run: docker push kevaron28/multi-server
+      - run: docker push kevaron28/multi-worker
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
